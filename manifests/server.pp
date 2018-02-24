@@ -5,7 +5,7 @@ class mysql::server (
   $install_options         = undef,
   $install_secret_file     = $mysql::params::install_secret_file,
   $manage_config_file      = $mysql::params::manage_config_file,
-  $override_options        = {},
+  $override_options        = hiera_hash('mysql::server::override_options_hash',{}),
   $package_ensure          = $mysql::params::server_package_ensure,
   $package_manage          = $mysql::params::server_package_manage,
   $package_name            = $mysql::params::server_package_name,
@@ -21,9 +21,10 @@ class mysql::server (
   $service_provider        = $mysql::params::server_service_provider,
   $create_root_user        = $mysql::params::create_root_user,
   $create_root_my_cnf      = $mysql::params::create_root_my_cnf,
-  $users                   = {},
-  $grants                  = {},
-  $databases               = {},
+  $users                   = hiera_hash('mysql::server::users_hash',{}),
+  $grants                  = hiera_hash('mysql::server::grants_hash',{}),
+  $databases               = hiera_hash('mysql::server::databases_hash',{}),
+
 
   # Deprecated parameters
   $enabled                 = undef,
